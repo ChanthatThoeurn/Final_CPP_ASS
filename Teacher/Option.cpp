@@ -3,8 +3,147 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <cctype>
+// #include "Login_Logout.cpp"
 using namespace std;
+void Header1(){
+system("color 0a");
+system("cls");
+cout<<" ____    _____   _   _   ____    _____   _   _   _____        __  __        ____        ____   __   __  ____    _____   _____   __  __ "<<endl;
+cout<<"/ ___|  |_   _| | | | | |  _ \\  | ____| | \\ | | |_   _|      |  \\/  |      / ___|      / ___|  \\ \\ / / / ___|  |_   _| | ____| |  \\/  |"<<endl;
+cout<<"\\___ \\    | |   | | | | | | | | |  _|   |  \\| |   | |        | |\\/| |     | |  _       \\___ \\   \\ V /  \\___ \\    | |   |  _|   | |\\/| |"<<endl;
+cout<<" ___) |   | |   | |_| | | |_| | | |___  | |\\  |   | |        | |  | |  _  | |_| |       ___) |   | |    ___) |   | |   | |___  | |  | |"<<endl;
+cout<<"|____/    |_|    \\___/  |____/  |_____| |_| \\_|   |_|        |_|  |_| (_)  \\____|      |____/    |_|   |____/    |_|   |_____| |_|  |_|"<<endl;
+cout<<endl;
+cout<<endl;
+cout<<endl;
+cout<<endl;
+}
+// ==================================================================== Validation Functions ====================================================================
+// validation ID
+bool isValidAge(const string &str){
+    if (str.empty()) return false;
+    for (char c : str){
+        if(!isdigit(c)) return false;
+    }
+    return true;
+}
+int getValidatedID() {
+    string input;
+    int ID;
+    while(true){
+        cout << "\t\t\t[👤 ] => Enter ID: ";
+        getline(cin , input);
 
+        if(!isValidAge(input)) {
+            cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Please enter id......." << endl;
+        } else {
+            ID = stoi(input);
+            if (ID < 0 || ID > 12000){
+                cout << "\t\t\t\t\t\t\t\t\t\t\t [!]ID must be between 0 and 12000. Please try again. " << endl;
+            } else {
+                break;
+            }
+        }
+
+    }
+    return ID;
+}
+// validation Score
+float getValidatedScore() {
+    string input;
+    float Score;
+
+    while(true){
+        cout << "\t\t\t[👤 ] => Enter Score: ";
+        getline(cin , input);
+
+        if(!isValidAge(input)) {
+            cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Please enter Score......." << endl;
+        } else {
+            Score = stoi(input);
+            if (Score < 0 || Score > 100){
+                cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Age must be between 0 and 100. Please try again. " << endl;
+            } else {
+                break;
+            }
+        }
+
+    }
+    return Score;
+}
+// validation Name
+string getValidatedName() {
+    string fullName;
+    bool isValid;
+
+    while (true) {
+        cout << "\t\t\t[👤 ] => Enter Name: ";
+        getline(cin, fullName);
+
+        isValid = true;
+        if (fullName.empty()) {
+            cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Please enter a  name......\n";
+            isValid = false;
+        } else {
+            for (char c : fullName) {
+                if (!isalpha(c) && !isspace(c)) {
+                    isValid = false;
+                    cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Invalid name. Only letters and spaces are allowed." << endl;
+                    break;
+                }
+            }
+        }
+
+        if (isValid) {
+            return fullName;
+        }
+    }
+}
+// validation room
+string getValidatedRoom() {
+    string fullRoom;
+    bool isValid;
+
+    while (true) {
+        cout << "\t\t\t[👤 ] => Enter Room: ";
+        getline(cin, fullRoom);
+
+        isValid = true;
+        if (fullRoom.empty()) {
+            cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Please enter a  Room......\n";
+            isValid = false;
+        } else {
+            for (char c : fullRoom) {
+                if (!isalpha(c) && !isspace(c)) {
+                    isValid = false;
+                    cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Invalid Room. Only letters and spaces are allowed." << endl;
+                    break;
+                }
+            }
+        }
+
+        if (isValid) {
+            return fullRoom;
+        }
+    }
+}
+// validation Gender
+string getValidatedGender() {
+    
+    string gender;
+    while (true) {
+        cout << "\t\t\t[👤 ] => Enter Gender (M/F): ";
+        getline(cin, gender);
+        if (gender == "M" || gender == "F") {
+            return gender; // Return valid gender
+        } else if(gender.empty())  {
+            cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Please input a gender......." << endl;
+        } else {
+            cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Invalid gender. Please enter 'M' for Male or 'F' for Female." << endl;
+        }
+    }
+}
 
 
 class Student {
@@ -34,19 +173,25 @@ public:
     void InputInfo() {
         system("cls");
         system("color 6");
-        cout << "\t\t\t[👤 ] Enter ID: ";
-        cin >> ID;
-        cin.ignore();
-        cout << "\t\t\t[👤 ] Enter Name: ";
-        getline(cin, Name);
-        cout << "\t\t\t[👤 ] Enter Gender: ";
-        cin >> Gender;
-        cin.ignore();
-        cout << "\t\t\t[👤 ] Enter Room: ";
-        getline(cin, Room);
-        cout << "\t\t\t[👤 ] Enter Score: ";
-        cin >> Scorre;
-        cin.ignore();
+        // cout << "\t\t\t[👤 ] Enter ID: ";
+        // cin >> ID;
+        // cin.ignore();
+        // cout << "\t\t\t[👤 ] Enter Name: ";
+        // getline(cin, Name);
+        // cout << "\t\t\t[👤 ] Enter Gender: ";
+        // cin >> Gender;
+        // cin.ignore();
+        // cout << "\t\t\t[👤 ] Enter Room: ";
+        // getline(cin, Room);
+        // cout << "\t\t\t[👤 ] Enter Score: ";
+        // cin >> Scorre;
+        // cin.ignore();
+        ID = getValidatedID();
+        Name = getValidatedName();
+        Gender = getValidatedGender()[0];
+        Room = getValidatedRoom();
+        Scorre = getValidatedScore();
+        
     }
 
     void ShowInfo() const {
@@ -116,6 +261,7 @@ void SaveAllToCSV(const string& filename) {
 
 void AddStudent() {
     system("cls");
+    Header1();
     system("color 4");
     cout << "\t\t\t[👤 ] Add Student:\n";
     Student s;
@@ -123,10 +269,15 @@ void AddStudent() {
     students.push_back(s);
     SaveAllToCSV("Excel.csv");
     cout << "\n\t\t\t[✅] Student added successfully.\n";
+    system("pause");
+    system("cls");
+    Header1();
+  
 }
 
 void ViewAllStudents() {
     system("cls");
+    Header1();
     system("color 3");
     if (students.empty()) {
         cout << "\t\t[!] No students found.\n";
@@ -136,10 +287,14 @@ void ViewAllStudents() {
         cout << "\n\t\t\t[👤 ] Student " << i + 1 << ":\n";
         students[i].ShowInfo();
     }
+    system("pause");
+    system("cls");
+    Header1();
 }
 
 void SearchStudent() {
     system("cls");
+    Header1();
     system("color 2");
     cout << "\t\tSearch by (1) ID or (2) Name? > ";
     int option;
@@ -174,10 +329,14 @@ void SearchStudent() {
     if (!found) {
         cout << "\t\t[!] Student not found.\n";
     }
+    system("pause");
+    system("cls");
+    Header1();
 }
 
 void UpdateStudent() {
     system("cls");
+    Header1();
     system("color 5");
     cout << "\t\tUpdate by (1) ID or (2) Name? > ";
     int option;
@@ -217,6 +376,8 @@ void UpdateStudent() {
     } else {
         cout << "\t\t[!] Student not found.\n";
     }
+    system("pause");
+    system("cls");
 }
 
 void DeleteStudent() {
@@ -259,4 +420,7 @@ void DeleteStudent() {
     } else {
         cout << "\t\t[!] Student not found.\n";
     }
+    system("pause");
+    system("cls");
+    Header1();
 }
