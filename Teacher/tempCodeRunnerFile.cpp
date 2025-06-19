@@ -1,2 +1,1 @@
-
-    Teacher t;
+  

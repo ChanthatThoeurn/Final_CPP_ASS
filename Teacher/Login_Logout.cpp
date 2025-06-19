@@ -26,7 +26,9 @@ void Option(){
     cout<<"\t\t\t[2] STUDENT 🧑‍🎓"<<endl;
     cout<<"\t\t\t[3] Exite ❕"<<endl;
     cout<<"\t\t\t[🫴 ] Choose an option: ";
+
 }
+
 void Option1(){
     system("color 5");
     cout<<"\t\t\t[1] Sign Up"<<endl;
@@ -42,15 +44,49 @@ void Option1_1(){
     cout<<"\t\t\t[🫴 ] Choose an option: ";
 }
 void Option2(){
-
+     int selected = 0;
+    const int options = 6;
     system("color 5");
-    cout<<"\t\t\t[1] Add Student"<<endl;
-    cout<<"\t\t\t[2] Search Student  (By ID / Name)"<<endl;
-    cout<<"\t\t\t[3] Update Student  (By ID / Name)"<<endl;
-    cout<<"\t\t\t[4] Deleted Student (By ID / Name)"<<endl;
-    cout<<"\t\t\t[5] View All Student"<<endl;
-    cout<<"\t\t\t[6] Back"<<endl;
-    cout<<"\t\t\t[🫴 ] Choose an option: ";
+    string menu[] = {
+        "1️⃣  Add Student ",
+        "2️⃣  Search Student  (By ID / Name)",
+        "3️⃣  Update Student  (By ID / Name",
+        "4️⃣  Deleted Student (By ID / Name)",
+        "5️⃣  View All Student",
+        "🅾️  Logout"
+    };
+    while (true) {
+        system("cls"); 
+        Header();
+        for (int i = 0; i < options; ++i) {
+            if (i == selected)
+                cout << "👉 " << menu[i] << "\n";
+            else
+                cout << "   " << menu[i] << "\n";
+        }
+
+        cout << "\n==============================================\n";
+        cout << "↕️   Use ↑/↓ arrow keys to navigate. Press Enter to select.\n";
+
+        int ch = _getch();
+        if (ch == 224) { 
+            switch (_getch()) {
+                case 72: selected = (selected - 1 + options) % options; break; 
+                case 80: selected = (selected + 1) % options; break;           
+            }
+        } else if (ch == 13) { 
+            switch (selected) {
+                case 0: AddStudent(); break;
+                case 1: SearchStudent(); break;
+                case 2: UpdateStudent(); break;
+                case 3: DeleteStudent(); break;
+                case 4: ViewAllStudents(); break;
+                case 5: cout<<"Logout";
+                    cout << "\n\t\t[✔] Exiting program...\n";
+                    return;
+            }
+        }
+    }
 }
 void StudentOption(){
     system("color 5");
@@ -129,7 +165,60 @@ void ViewScore(){
     }
 }
 
+void optionStudentsSuccess(){
+    int selected = 0;
+    const int options = 4;
+    string menu[] = {
+        "1️⃣  View Room Studying ",
+        "2️⃣  View Subject to Studying",
+        "3️⃣  View Information detail",
+        "🅾️  Logout"
+    };
+    while (true) {
+        system("cls"); 
+        Header();
+        for (int i = 0; i < options; ++i) {
+            if (i == selected)
+                cout << "👉 " << menu[i] << "\n";
+            else
+                cout << "   " << menu[i] << "\n";
+        }
 
+        cout << "\n==============================================\n";
+        cout << "↕️   Use ↑/↓ arrow keys to navigate. Press Enter to select.\n";
+
+        int ch = _getch();
+        if (ch == 224) { 
+            switch (_getch()) {
+                case 72: selected = (selected - 1 + options) % options; break; 
+                case 80: selected = (selected + 1) % options; break;           
+            }
+        } else if (ch == 13) { 
+            switch (selected) {
+                case 0:
+                   system("cls");
+                      Header();
+                      ViewRoom();
+                      system("pause");
+                    break;
+                case 1:
+                    system("cls");
+                    Header();
+                    ViewSubject();
+                    system("pause");
+                    break;
+                case 2:
+                    system("cls");
+                    Header();
+                    ViewScore();
+                    system("pause");
+                case 3:
+                    cout << "\n\t\t[✔] Exiting program...\n";
+                    return;
+            }
+        }
+    }
+}
 struct User {
     string username;
     string password;
@@ -201,8 +290,9 @@ private:
                        cout << "\t\t\t|----------------------------------------------------|" <<endl;
                        cout << "\t\t\t| [✅] Login successful. Welcome Student  " << currentUser <<"    |"<<endl;
                        cout << "\t\t\t|____________________________________________________|" <<endl;
+                       optionStudentsSuccess();
                        do{
-                           StudentOption();
+                        //    StudentOption();
                         try{
                         cin >> option;
                         if (cin.fail()) {
@@ -309,6 +399,7 @@ string getHiddenInput() {
 
  
 void SignUp(SystemAuth& auth) {
+  
            cin.ignore();
            string username, password;
            cout << "\t\t\t[👤 ] Enter username: ";
@@ -320,9 +411,9 @@ void SignUp(SystemAuth& auth) {
        void Student(SystemAuth& auth) {
            cin.ignore();
            string username, password;
-           cout << "\t\t\t[👤 ] Enter username: ";
+           cout << "\t\t\t[👤] Enter username: ";
            getline(cin, username);
-           cout << "\t\t\t[🔑 ] Enter password: ";
+           cout << "\t\t\t[🔑] Enter password: ";
            password = getHiddenInput();
            auth.StudentLogin(username, password);
 }  
@@ -368,31 +459,127 @@ public:
     }
 
     void showTeacherMenu() {
-        int option;
-        do {
-            system("cls");
-            Header();
-            Option2();
-            cin >> option;
+        Option2();
+        // int option;
+        // do {
+        //     system("cls");
+        //     Header();
+        //     Option2();
+        //     cin >> option;
 
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "[!] Invalid input. Please enter a number.\n";
-                system("pause");
-                continue;
-            }
-            switch (option) {
-                case 1: AddStudent(); break;
-                case 2: SearchStudent(); break;
-                case 3: UpdateStudent(); break;
-                case 4: DeleteStudent(); break;
-                case 5: ViewAllStudents(); break;
-                case 6: cout << "\n\t\t\t[✔] Exiting Teacher Menu...\n"; break;
-                default: cout << "[!] Invalid option.\n"; break;
-            }
+        //     if (cin.fail()) {
+        //         cin.clear();
+        //         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        //         cout << "[!] Invalid input. Please enter a number.\n";
+        //         system("pause");
+        //         continue;
+        //     }
+        //     switch (option) {
+        //         case 1: AddStudent(); break;
+        //         case 2: SearchStudent(); break;
+        //         case 3: UpdateStudent(); break;
+        //         case 4: DeleteStudent(); break;
+        //         case 5: ViewAllStudents(); break;
+        //         case 6: cout << "\n\t\t\t[✔] Exiting Teacher Menu...\n"; break;
+        //         default: cout << "[!] Invalid option.\n"; break;
+        //     }
 
-        } while (option != 6);
+        // } while (option != 6);
     }
 }; 
 
+void optionStudentslogin(){
+     int selected = 0;
+    const int options = 3;
+    string menu[] = {
+        "1️⃣  Sigup",
+        "2️⃣  Login",
+        "🅾️  Exit"
+    };
+    SystemAuth auth;
+    while (true) {
+        system("cls"); 
+        Header();
+        for (int i = 0; i < options; ++i) {
+            if (i == selected)
+                cout << "👉 " << menu[i] << "\n";
+            else
+                cout << "   " << menu[i] << "\n";
+        }
+
+        cout << "\n==============================================\n";
+        cout << "↕️   Use ↑/↓ arrow keys to navigate. Press Enter to select.\n";
+
+        int ch = _getch();
+        if (ch == 224) { 
+            switch (_getch()) {
+                case 72: selected = (selected - 1 + options) % options; break; 
+                case 80: selected = (selected + 1) % options; break;           
+            }
+        } else if (ch == 13) { 
+            switch (selected) {
+                case 0:
+                    Header();
+                   SignUp(auth);
+                    break;
+                case 1:
+                    Header();
+                    Student(auth);
+                    optionStudentsSuccess();
+                    break;
+                case 2:
+                    cout << "\n\t\t[✔] Exiting program...\n";
+                    return;
+            }
+        }
+    }
+}
+void mainMenu() {
+    int selected = 0;
+    const int options = 3;
+    string menu[] = {
+        "1️⃣  Teacher",
+        "2️⃣  Students",
+        "🅾️  Exit"
+    };
+
+    SystemAuth auth;  // Create one instance of your authentication system
+    Teacher teacher;  // Create one instance of Teacher
+
+    while (true) {
+        system("cls"); 
+        Header();
+
+        for (int i = 0; i < options; ++i) {
+            if (i == selected)
+                cout << "👉 " << menu[i] << "\n";
+            else
+                cout << "   " << menu[i] << "\n";
+        }
+
+        cout << "\n==============================================\n";
+        cout << "↕️   Use ↑/↓ arrow keys to navigate. Press Enter to select.\n";
+
+        int ch = _getch();
+        if (ch == 224) { 
+            switch (_getch()) {
+                case 72: selected = (selected - 1 + options) % options; break; 
+                case 80: selected = (selected + 1) % options; break;           
+            }
+        } else if (ch == 13) { 
+            switch (selected) {
+                case 0:
+                    teacher.loginTeacher();  // Includes the teacher menu
+                    break;
+                case 1:
+                    Header();
+                    Option1();
+                    optionStudentslogin();
+                    break;
+                case 2:
+                    cout << "\n\t\t[✔] Exiting program...\n";
+                    return;
+            }
+        }
+    }
+}

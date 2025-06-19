@@ -9,7 +9,8 @@
         "limits": "cpp",
         "vector": "cpp",
         "string": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "stdexcept": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

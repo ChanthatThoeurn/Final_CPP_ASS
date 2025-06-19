@@ -24,7 +24,8 @@ int main(){
   
     do{
         Header();
-        Option();
+        // Option();
+        mainMenu();
         // cin>>choice;
             try {
             cin >> choice;
@@ -37,7 +38,8 @@ int main(){
                 case 2:
                  do {
                     Header();
-                    Option1();
+                    // Option1();
+                    optionStudentslogin();
                     try{
                         cin>>choice1;
                         if (cin.fail()) {
@@ -47,13 +49,13 @@ int main(){
                         }
                     switch (choice1) {
                         case 1:
-                            SignUp(auth);
-                            system("pause");
+                            // SignUp(auth);
+                            // system("pause");
                             break;
                         case 2:
-                            Student(auth);
-                            system("pause");
-                            break;
+                            // Student(auth);
+                            // system("pause");
+                            // break;
                         case 3:
                             cout << "\t\t\t[↩] Returning to main menu...\n";
                             break;
