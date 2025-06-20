@@ -33,7 +33,7 @@ int getValidatedID() {
     int ID;
     while(true){
         cout << "\t\t\t[👤 ] => Enter ID: ";
-        getline(cin , input);
+        getline(cin ,input);
 
         if(!isValidAge(input)) {
             cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Please enter id......." << endl;

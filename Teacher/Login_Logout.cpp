@@ -212,9 +212,10 @@ void optionStudentsSuccess(){
                     Header();
                     ViewScore();
                     system("pause");
-                case 3:
+                default:
                     cout << "\n\t\t[✔] Exiting program...\n";
                     return;
+                break;
             }
         }
     }
@@ -409,13 +410,14 @@ void SignUp(SystemAuth& auth) {
            auth.signUp(username, password);
 }       
        void Student(SystemAuth& auth) {
-           cin.ignore();
+        //    cin.ignore();
            string username, password;
            cout << "\t\t\t[👤] Enter username: ";
            getline(cin, username);
            cout << "\t\t\t[🔑] Enter password: ";
            password = getHiddenInput();
            auth.StudentLogin(username, password);
+        //    optionStudentsSuccess();
 }  
 
 
@@ -520,12 +522,12 @@ void optionStudentslogin(){
             switch (selected) {
                 case 0:
                     Header();
-                   SignUp(auth);
+                    SignUp(auth);
                     break;
                 case 1:
                     Header();
                     Student(auth);
-                    optionStudentsSuccess();
+                    // optionStudentsSuccess();
                     break;
                 case 2:
                     cout << "\n\t\t[✔] Exiting program...\n";

@@ -21,12 +21,14 @@ int main(){
     Teacher t;
   
   
+    
   
     do{
         Header();
         // Option();
         mainMenu();
         // cin>>choice;
+        
             try {
             cin >> choice;
             if (cin.fail()) {
@@ -65,6 +67,7 @@ int main(){
                     }catch (const runtime_error& e) {
                         cout << "[!] " << e.what() << endl;
                         }
+                        break;
                 } while (choice1 != 3);
                 case 1:
                     do {
