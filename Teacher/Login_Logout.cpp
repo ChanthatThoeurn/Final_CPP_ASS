@@ -45,7 +45,7 @@ void Option1_1(){
 }
 void Option2(){
      int selected = 0;
-    const int options = 6;
+    const int options = 7;
     system("color 5");
     string menu[] = {
         "1️⃣  Add Student ",
@@ -53,6 +53,7 @@ void Option2(){
         "3️⃣  Update Student  (By ID / Name",
         "4️⃣  Deleted Student (By ID / Name)",
         "5️⃣  View All Student",
+        "6️⃣  Sort Student ",
         "🅾️  Logout"
     };
     while (true) {
@@ -81,7 +82,8 @@ void Option2(){
                 case 2: UpdateStudent(); break;
                 case 3: DeleteStudent(); break;
                 case 4: ViewAllStudents(); break;
-                case 5: cout<<"Logout";
+                case 5: SortData(students);break;
+                case 6: cout<<"Logout";
                     cout << "\n\t\t[✔] Exiting program...\n";
                     return;
             }
@@ -213,7 +215,7 @@ void optionStudentsSuccess(){
                     ViewScore();
                     system("pause");
                 default:
-                    cout << "\n\t\t[✔] Exiting program...\n";
+                    cout << "\n\t\t[✔] Logout\n";
                     return;
                 break;
             }
@@ -292,43 +294,46 @@ private:
                        cout << "\t\t\t| [✅] Login successful. Welcome Student  " << currentUser <<"    |"<<endl;
                        cout << "\t\t\t|____________________________________________________|" <<endl;
                        optionStudentsSuccess();
-                       do{
-                        //    StudentOption();
-                        try{
-                        cin >> option;
-                        if (cin.fail()) {
-                        cin.clear();
-                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                        throw runtime_error("Invalid input. Please enter a number.");
-                        }
-                          switch (option) {
-                            case 1:
-                                    system("cls");
-                                    Header();
-                                    ViewRoom();
-                                    system("pause");
-                             break;
-                            case 2:
-                                    system("cls");
-                                    Header();
-                                    ViewSubject();
-                                    system("pause");
-                            break;
-                            case 3:
-                                    ViewScore();
-                             break;
-                            case 4:cout << "\t\t[✔] Exiting...\n"; break;
-                            default: cout << "\t\t[!] Invalid option.\n"; break;
-                            }
-                        }catch (const runtime_error& e) {
-                        cout << "[!] " << e.what() << endl;
-                        }
-                         } while (option != 4);
-                        return;
                    }
-               }
-               cout << "Invalid username or password.\n";
-           }
+                }
+            }
+                    //    do{
+        //                 //    StudentOption();
+        //                 try{
+        //                 cin >> option;
+        //                 if (cin.fail()) {
+        //                 cin.clear();
+        //                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        //                 throw runtime_error("Invalid input. Please enter a number.");
+        //                 }
+        //                   switch (option) {
+        //                     case 1:
+        //                             system("cls");
+        //                             Header();
+        //                             ViewRoom();
+        //                             system("pause");
+        //                      break;
+        //                     case 2:
+        //                             system("cls");
+        //                             Header();
+        //                             ViewSubject();
+        //                             system("pause");
+        //                     break;
+        //                     case 3:
+        //                             ViewScore();
+        //                      break;
+        //                     case 4:cout << "\t\t[✔] Exiting...\n"; break;
+        //                     default: cout << "\t\t[!] Invalid option.\n"; break;
+        //                     }
+        //                 }catch (const runtime_error& e) {
+        //                 cout << "[!] " << e.what() << endl;
+        //                 }
+        //                  } while (option != 4);
+        //                 return;
+        //            }
+        //        }
+        //        cout << "Invalid username or password.\n";
+        //    }
            void login(const string& username, const string& password) override {
             //    int option;
             //    for (const auto& user : users) {
@@ -401,10 +406,19 @@ string getHiddenInput() {
  
 void SignUp(SystemAuth& auth) {
   
-           cin.ignore();
+        //    cin.ignore();
            string username, password;
            cout << "\t\t\t[👤 ] Enter username: ";
-           getline(cin, username);
+           try{
+                        getline(cin, username);
+                        if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw runtime_error("Invalid input. Please enter a number.");
+                        }
+            }catch (const runtime_error& e) {
+                        cout << "[!] " << e.what() << endl;
+                        }
            cout << "\t\t\t[🔑 ] Enter password: ";
            password = getHiddenInput();
            auth.signUp(username, password);
@@ -413,14 +427,21 @@ void SignUp(SystemAuth& auth) {
         //    cin.ignore();
            string username, password;
            cout << "\t\t\t[👤] Enter username: ";
-           getline(cin, username);
+           try{
+                        getline(cin, username);
+                        if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw runtime_error("Invalid input. Please enter a number.");
+                        }
+            }catch (const runtime_error& e) {
+                        cout << "[!] " << e.what() << endl;
+                        }
            cout << "\t\t\t[🔑] Enter password: ";
            password = getHiddenInput();
            auth.StudentLogin(username, password);
         //    optionStudentsSuccess();
 }  
-
-
 
 
 class Teacher {
@@ -527,7 +548,6 @@ void optionStudentslogin(){
                 case 1:
                     Header();
                     Student(auth);
-                    // optionStudentsSuccess();
                     break;
                 case 2:
                     cout << "\n\t\t[✔] Exiting program...\n";

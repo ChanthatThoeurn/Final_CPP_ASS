@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <cctype>
+#include <algorithm>
 // #include "Login_Logout.cpp"
 using namespace std;
 void Header1(){
@@ -63,7 +64,7 @@ float getValidatedScore() {
         } else {
             Score = stoi(input);
             if (Score < 0 || Score > 100){
-                cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Age must be between 0 and 100. Please try again. " << endl;
+                cout << "\t\t\t\t\t\t\t\t\t\t\t [!]Score must be between 0 and 100. Please try again. " << endl;
             } else {
                 break;
             }
@@ -144,7 +145,6 @@ string getValidatedGender() {
         }
     }
 }
-
 
 class Student {
 public:
@@ -298,12 +298,18 @@ void SearchStudent() {
     system("color 2");
     cout << "\t\tSearch by (1) ID or (2) Name? > ";
     int option;
-    cin >> option;
-    cin.ignore();
-    bool found = false;
-
-    if (option == 1) {
-        int id;
+    try{
+         cin >> option;
+                        if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw runtime_error("Invalid input. Please enter a number.");
+                        }
+                        cin.ignore();
+                        bool found = false;
+                        
+                        if (option == 1) {
+                            int id;
         cout << "\t\tEnter ID: ";
         cin >> id;
         cin.ignore();
@@ -325,13 +331,29 @@ void SearchStudent() {
             }
         }
     }
-
+    
     if (!found) {
         cout << "\t\t[!] Student not found.\n";
     }
+}catch (const runtime_error& e) {
+            cout << "[!] " << e.what() << endl;
+            }
     system("pause");
     system("cls");
     Header1();
+}
+
+void SortData(vector<Student>& students) {
+    Header1();
+    sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
+        return a.Scorre > b.Scorre;
+    });
+    cout << "\n\t\t[📊] Students Sorted by Score (High to Low):\n";
+    for (const auto& student : students) {
+        student.ShowInfo();
+        cout << "\n";
+    }
+    system("pause");
 }
 
 void UpdateStudent() {
@@ -339,8 +361,17 @@ void UpdateStudent() {
     Header1();
     system("color 5");
     cout << "\t\tUpdate by (1) ID or (2) Name? > ";
-    int option;
-    cin >> option;
+      int option;
+   try{
+                        cin >> option;
+                        if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw runtime_error("Invalid input. Please enter a number.");
+                        }
+    }catch (const runtime_error& e) {
+            cout << "[!] " << e.what() << endl;
+            }
     cin.ignore();
     bool updated = false;
 
@@ -385,7 +416,13 @@ void DeleteStudent() {
     system("color 4");
     cout << "\t\tDelete by (1) ID or (2) Name? > ";
     int option;
-    cin >> option;
+    try{
+         cin >> option;
+                        if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        throw runtime_error("Invalid input. Please enter a number.");
+                        }
     cin.ignore();
     bool deleted = false;
 
@@ -420,6 +457,9 @@ void DeleteStudent() {
     } else {
         cout << "\t\t[!] Student not found.\n";
     }
+    }catch (const runtime_error& e) {
+            cout << "[!] " << e.what() << endl;
+            }
     system("pause");
     system("cls");
     Header1();

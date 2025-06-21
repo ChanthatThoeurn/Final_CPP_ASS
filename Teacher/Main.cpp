@@ -20,7 +20,6 @@ int main(){
     SetConsoleOutputCP(CP_UTF8);
     Teacher t;
   
-  
     
   
     do{
@@ -28,7 +27,6 @@ int main(){
         // Option();
         mainMenu();
         // cin>>choice;
-        
             try {
             cin >> choice;
             if (cin.fail()) {
